@@ -1,0 +1,18 @@
+sudo: required 
+language: cpp
+services:
+  - docker
+env:
+  global:
+    secure: "rMtl2UR6lEn0myhUR4qkPFnSQugoKOUZ9I5sOjp1pRbx4gC0TB1RB7+LF/UMBRFvDkXdQwcTHudJDQIEYW5+3HqfpDJE5feBO2/wLkmw3Qm9RtUjl7SJoT2Li9xUvL2w3iuw5jqL6/t0E4a9SYl/pjxH0tYy4aibGVn9+kDup29x2IlUuUqXNN3FNaiwdufoGtochYgBp7Dud3BuE+QyIZr+5egPH4Mdw8ZvQzHELwufQ8stc4Qyxp1wbneQocvtiPCRwTCRB3jBI4VpGmsjr3mroAqVju0E/uMYVy/l65KZcdRgQAAWoHAnZQ+GnJN84IcPA9iuKaafzlo4/Lu0Q3PzATYoR506qwScr2CDyBzwRW0LOsuJUXQfucIlllwSEDYGiFABPOKamhBJ4tnuDGfbjNusfmjmw97g3gtYber85faLGES6ygC80/31uAUb0gQQ+Sr7jBqCHZOJiAt9a4bRSKdoh6ocCTr9dlRfHoh+bzk1qLLOK0CUoUR9+ojDXhy1epV18r2bK9zW9i49ChgbGVgWEQIFybNw3gT5EjPEsQYikKfUd1eiywQSQvQAh+mC+igzoI6/1Zk3EyJrf6rHgkH6SC8glSNL+82WULrz9shz4wJMK2NDphDs4CMtfjzV3fbY9RRNXE8QXAvJFtrEKcJI8/v6e6oNgsAFlA0=" #BINTRAY_KEY
+
+before_install:
+  - mkdir $(pwd)/build
+  - docker pull spielhuus/toolchain:latest
+script:
+  - sudo docker run -itd -v $(pwd)/repo:/repo --name conan_build spielhuus/toolchain /bin/bash 
+  - sudo docker exec conan_build /bin/bash -c "git clone https://github.com/e3a/conan-easyexif.git /repo"
+  - sudo docker exec conan_build /bin/bash -c "conan user -p $BINTRAY_KEY -r conan-cpp squawkcpp"
+  - sudo docker exec conan_build /bin/bash -c "cd /repo && conan export conan-cpp/latest && conan install Easyexif/master@conan-cpp/latest --build=Easyexif && conan upload Easyexif/master@conan-cpp/latest --all -r=conan-cpp"
+  - sudo docker rm -f conan_build
+
