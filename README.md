@@ -1,11 +1,12 @@
-[ ![Download](https://api.bintray.com/packages/squawkcpp/conan-cpp/Re2%3Aconan-cpp/images/download.svg) ](https://bintray.com/squawkcpp/conan-cpp/Re2%3Aconan-cpp)
+[![Build Status](https://travis-ci.org/e3a/conan-easyexif.svg?branch=master)](https://travis-ci.org/e3a/conan-easyexif)
+[ ![Download](https://api.bintray.com/packages/squawkcpp/conan-cpp/Easyexif%3Aconan-cpp/images/download.svg) ](https://bintray.com/squawkcpp/conan-cpp/Easyexif%3Aconan-cpp)
 
-# re2
+# easyexif
 
-conan recipes for re2.
+conan recipes for easyexif.
 
-Homepage: [re2](https://github.com/google/re2)
+Homepage: [easyexif](https://github.com/mayanklahiri/easyexif)
 
-Refenrence: Re2/master@conan-cpp/latest  
+Refenrence: Easyexif/master@conan-cpp/latest  
 
 
